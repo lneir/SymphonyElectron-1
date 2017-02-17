@@ -4,7 +4,8 @@ const electron = require('electron');
 const packageJSON = require('../package.json');
 const menuTemplate = require('./menuTemplate.js');
 const path = require('path');
-const app = electron.app
+const app = electron.app;
+const URL = require('url');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,6 +29,22 @@ function isDevEnv() {
     return isDev;
 }
 
+function getUrlFromCommandLine() {
+    let urlArg = process.argv.find(function(item) {
+        return (item.indexOf('--url=') === 0);
+    });
+
+    if (urlArg) {
+        let url = URL.parse(urlArg.slice(6));
+        if (url.protocol === 'https:' || url.protocol === 'http:'
+            && hostname) {
+            return url.href;
+        }
+    }
+
+    return null;
+}
+
 function createMainWindow () {
     let key = getWindowKey();
 
@@ -47,7 +64,8 @@ function createMainWindow () {
 
     storeWindowKey(key, mainWindow)
 
-    mainWindow.loadURL(packageJSON.homepage);
+    var startUrl = getUrlFromCommandLine() || packageJSON.homepage;
+    mainWindow.loadURL(startUrl);
 
     const menu = electron.Menu.buildFromTemplate(menuTemplate(app));
     electron.Menu.setApplicationMenu(menu);
