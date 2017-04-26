@@ -4,16 +4,34 @@
     <body>
         <h1>Symphony Electron API Demo</h1>
         <p>Search</p>
-        <button id='search'>search</button>
+        Query: <input type="text" id="query" size=60> <br>
+        Offset:<input type="text" id="offset" value="0" size=5>
+        Limit: <input type="text" id="limit" value="25" size=5> <br>
+        Start: <input type="text" id="start" value="000" size=20>
+        End:   <input type="text" id="end" value="999" size=20> <br>
+        <button id='search'>search</button> <br>
+        <p>Results:</p><br>
+        <p id="results"></p><br>
+
+
     </body>
     <script>
         var search = new SYM_API.Search();
 
         var buttonEl = document.getElementById('search');
+        var queryEl = document.getElementById('query');
+        var offsetEl = document.getElementById('offset');
+        var limitEl = document.getElementById('limit');
+        var startEl = document.getElementById('start');
+        var endEl = document.getElementById('end');
+        var resultsEl = document.getElementById('results');
 
         buttonEl.addEventListener('click', function() {
-            search.query().then(function(result) {
-                alert(result.text);
+            var args = [ offsetEl.value, limitEl.value, startEl.value, endEl.value, queryEl.value ];
+            alert(args.toString());
+            search.query(args).then(function(result) {
+                resultsEl.innerHTML = JSON.stringify(result);
+                //JSON.stringify(result);
             });
         });
 
