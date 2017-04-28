@@ -17,7 +17,6 @@
     </body>
     <script>
         var search = new SYM_API.Search();
-
         var buttonEl = document.getElementById('search');
         var queryEl = document.getElementById('query');
         var offsetEl = document.getElementById('offset');
@@ -28,7 +27,6 @@
 
         buttonEl.addEventListener('click', function() {
             var args = [ offsetEl.value, limitEl.value, startEl.value, endEl.value, queryEl.value ];
-            alert(args.toString());
             search.query(args).then(function(result) {
                 resultsEl.innerHTML = JSON.stringify(result);
                 //JSON.stringify(result);

@@ -2,13 +2,8 @@
 const childProcess = require('child_process');
 const PWD = 'pwd';
 const SEARCHBIN = 'demosearcher';
-const SEARCHARGS = ['0', '0000000000000', '9999999999999']
 
 class Search {
-
-    credentials(username, password) {
-
-    }
 
     query(query) {
       return new Promise((resolve, reject) => {
