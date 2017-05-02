@@ -9,6 +9,8 @@
         Limit: <input type="text" id="limit" value="25" size=5> <br>
         Start: <input type="text" id="start" value="000" size=20>
         End:   <input type="text" id="end" value="999" size=20> <br>
+        SenderId:   <input type="text" id="senderId"  size=20> <br>
+        ThreadId:   <input type="text" id="threadId"  size=20> <br>
         <button id='search'>search</button> <br>
         <p>Results:</p><br>
         <p id="results"></p><br>
@@ -24,10 +26,11 @@
         var startEl = document.getElementById('start');
         var endEl = document.getElementById('end');
         var resultsEl = document.getElementById('results');
+        var senderIdEl = document.getElementById('senderId');
+        var threadIdEl = document.getElementById('threadId');
 
         buttonEl.addEventListener('click', function() {
-            var args = [ offsetEl.value, limitEl.value, startEl.value, endEl.value, queryEl.value ];
-            search.query(args).then(function(result) {
+            search.query(queryEl.value, offsetEl.value, limitEl.value, startEl.value, endEl.value, senderIdEl.value, threadIdEl.value).then(function(result) {
                 resultsEl.innerHTML = JSON.stringify(result);
                 //JSON.stringify(result);
             });
