@@ -170,6 +170,7 @@ function doCreateMainWindow(initialUrl, initialBounds) {
     // open external links in default browser - a tag, window.open
     mainWindow.webContents.on('new-window', function(event, newWinUrl,
         frameName, disposition, newWinOptions) {
+            console.log('trying to create window')
         let newWinParsedUrl = getParsedUrl(newWinUrl);
         let mainWinParsedUrl = getParsedUrl(url);
 

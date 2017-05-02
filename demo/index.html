@@ -52,6 +52,8 @@
         <button id='open-win'>open window</button>
 
         <button id='bring-to-front'>bring open window to front</button>
+
+        <button id='crash'>crash the app</button>
     </body>
     <script>
         var notfEl = document.getElementById('notf');
@@ -152,6 +154,11 @@
         function onBoundsChange(arg) {
             console.log('bounds changed for=', arg)
         }
+
+        var crash = document.getElementById('crash');
+        crash.addEventListener('click', function() {
+            SYM_API.crash();
+        });
 
     </script>
 </html>

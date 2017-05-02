@@ -120,6 +120,10 @@ function createAPI() {
                     cmd: apiCmds.registerLogger
                 });
             }
+        },
+
+        crash: function() {
+            local.ipcRenderer.send(apiName, { cmd: 'crash'});
         }
     };
 

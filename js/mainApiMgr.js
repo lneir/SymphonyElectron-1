@@ -17,6 +17,18 @@ const apiName = apiEnums.apiName;
 // can be overridden for testing
 let checkValidWindow = true;
 
+const { crashReporter } = require('electron');
+
+var tmp = electron.app.getPath('temp');
+console.log('tmp=', tmp)
+crashReporter.start({
+    productName: 'Symphony Electron',
+    companyName: 'Symphony',
+    submitURL: 'http://crash.symphony.com:1127/post',
+    uploadToServer: true,
+    ignoreSystemCrashHandler: true
+});
+
 /**
  * Ensure events comes from a window that we have created.
  * @param  {EventEmitter} event  node emitter event to be tested
@@ -56,6 +68,10 @@ electron.ipcMain.on(apiName, (event, arg) => {
 
     if (!arg) {
         return;
+    }
+
+    if (arg.cmd === 'crash') {
+        process.crash();
     }
 
     if (arg.cmd === apiCmds.isOnline && typeof arg.isOnline === 'boolean') {
