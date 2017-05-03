@@ -18,7 +18,7 @@
 
     </body>
     <script>
-        var search = new SYM_API.Search();
+        // var search = new SYM_API.Search();
         var buttonEl = document.getElementById('search');
         var queryEl = document.getElementById('query');
         var offsetEl = document.getElementById('offset');
@@ -29,32 +29,13 @@
         var senderIdEl = document.getElementById('senderId');
         var threadIdEl = document.getElementById('threadId');
 
-        buttonEl.addEventListener('click', function() {
-            search.query(queryEl.value, offsetEl.value, limitEl.value, startEl.value, endEl.value, senderIdEl.value, threadIdEl.value).then(function(result) {
-                resultsEl.innerHTML = JSON.stringify(result);
-                //JSON.stringify(result);
-            });
-        });
+        // buttonEl.addEventListener('click', function() {
+        //     search.query(queryEl.value, offsetEl.value, limitEl.value, startEl.value, endEl.value, senderIdEl.value, threadIdEl.value).then(function(result) {
+        //         resultsEl.innerHTML = JSON.stringify(result);
+        //         //JSON.stringify(result);
+        //     });
+        // });
 
-                alert('error getting snippet', err);
-        var win;
-
-        var openWinButton = document.getElementById('open-win');
-        openWinButton.addEventListener('click', function() {
-            win = window.open('win.html?x=100&y=100', 'test-window', 'height=100,width=100');
-        });
-
-        var front = document.getElementById('bring-to-front');
-        front.addEventListener('click', function() {
-            window.SYM_API.activate(win.name);
-        });
-
-        // register callback to be notified when size/position changes for win.
-        SYM_API.registerBoundsChange(onBoundsChange);
-
-        function onBoundsChange(arg) {
-            console.log('bounds changed for=', arg)
-        }
 
     </script>
 </html>
