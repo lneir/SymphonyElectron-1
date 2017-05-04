@@ -76,7 +76,7 @@ function createAPI() {
          */
         ScreenSnippet: remote.require('./screenSnippet/ScreenSnippet.js'),
 
-	    // Search: remote.require('./search/Search.js'),
+	    Search: remote.require('./search/Search.js'),
 
         /**
          * @param  {String} windowName Name of window. Note: main window name is 'main'

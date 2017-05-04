@@ -18,7 +18,7 @@
 
     </body>
     <script>
-        // var search = new SYM_API.Search();
+        var search = new SYM_API.Search();
         var buttonEl = document.getElementById('search');
         var queryEl = document.getElementById('query');
         var offsetEl = document.getElementById('offset');
@@ -29,12 +29,12 @@
         var senderIdEl = document.getElementById('senderId');
         var threadIdEl = document.getElementById('threadId');
 
-        // buttonEl.addEventListener('click', function() {
-        //     search.query(queryEl.value, offsetEl.value, limitEl.value, startEl.value, endEl.value, senderIdEl.value, threadIdEl.value).then(function(result) {
-        //         resultsEl.innerHTML = JSON.stringify(result);
-        //         //JSON.stringify(result);
-        //     });
-        // });
+        buttonEl.addEventListener('click', function() {
+            search.query(queryEl.value, offsetEl.value, limitEl.value, startEl.value, endEl.value, senderIdEl.value, threadIdEl.value).then(function(result) {
+                resultsEl.innerHTML = JSON.stringify(result);
+                // JSON.stringify(result);
+            });
+        });
 
 
     </script>
