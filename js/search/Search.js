@@ -53,45 +53,46 @@ class Search {
     }
 
     getEnhancedQuery(query) {
-        var tokens = query.toLowerCase().trim()
-          .replace(INVALID_CHARACTERS_REGEX, ' ')
-          .split(' ');
-
-        var hashtagTokens = [];
-        var plainTokens = [];
-
-        for(let i=0; i<tokens.length; i++) {
-            if(tokens[i].startsWith("$") || tokens[i].startsWith("#")) {
-                hashtagTokens.push(tokens[i]);
-            } else {
-                // if #test search should return test then remove else
-                //and use query directly
-                plainTokens.push(tokens[i]);
-            }
-        }
-
-        var q = "";
-
-        for(let i=0; i < plainTokens.length; i++) {
-            q += plainTokens[i] + " ";
-        }
-        if(hashtagTokens.length > 0 ) {
-            var hashtagQuery = "(";
-            for(var i=0; i<hashtagTokens.length; i++) {
-                if(i>0) {
-                    hashtagQuery += " OR ";
-                }
-                hashtagQuery += ("tags:\"" + hashtagTokens[i] + "\"");
-            }
-            hashtagQuery += ")";
-            if(q.length > 0){
-                q += " OR ";
-            }
-            q += hashtagQuery;
-        }
-
-        q = "(" + q + ")";
-        return q;
+        return query;
+        // var tokens = query.toLowerCase().trim()
+        //   .replace(INVALID_CHARACTERS_REGEX, ' ')
+        //   .split(' ');
+        //
+        // var hashtagTokens = [];
+        // var plainTokens = [];
+        //
+        // for(let i=0; i<tokens.length; i++) {
+        //     if(tokens[i].startsWith("$") || tokens[i].startsWith("#")) {
+        //         hashtagTokens.push(tokens[i]);
+        //     } else {
+        //         // if #test search should return test then remove else
+        //         //and use query directly
+        //         plainTokens.push(tokens[i]);
+        //     }
+        // }
+        //
+        // var q = "";
+        //
+        // for(let i=0; i < plainTokens.length; i++) {
+        //     q += plainTokens[i] + " ";
+        // }
+        // if(hashtagTokens.length > 0 ) {
+        //     var hashtagQuery = "(";
+        //     for(var i=0; i<hashtagTokens.length; i++) {
+        //         if(i>0) {
+        //             hashtagQuery += " OR ";
+        //         }
+        //         hashtagQuery += ("tags:\"" + hashtagTokens[i] + "\"");
+        //     }
+        //     hashtagQuery += ")";
+        //     if(q.length > 0){
+        //         q += " OR ";
+        //     }
+        //     q += hashtagQuery;
+        // }
+        //
+        // q = "(" + q + ")";
+        // return q;
     }
 
 }
