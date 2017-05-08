@@ -53,7 +53,7 @@ class Search {
     }
 
     getEnhancedQuery(query) {
-        return query;
+        return '(' + query + ')';
         // var tokens = query.toLowerCase().trim()
         //   .replace(INVALID_CHARACTERS_REGEX, ' ')
         //   .split(' ');
