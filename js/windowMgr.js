@@ -21,8 +21,8 @@ const notify = require('./notify/electron-notify.js');
 const eventEmitter = require('./eventEmitter');
 const throttle = require('./utils/throttle.js');
 const { getConfigField, updateConfigField, readConfigFileSync, getMultipleConfigField } = require('./config.js');
-const { isMac, isNodeEnv, isWindows10, isWindowsOS } = require('./utils/misc');
-const { isWhitelisted, parseDomain } = require('./utils/whitelistHandler');
+const { isDevEnv, isMac, isNodeEnv, isWindows10, isWindowsOS } = require('./utils/misc');
+const { isWhitelisted } = require('./utils/whitelistHandler');
 const { initCrashReporterMain, initCrashReporterRenderer } = require('./crashReporter.js');
 const i18n = require('./translation/i18n');
 const getCmdLineArg = require('./utils/getCmdLineArg');
@@ -375,7 +375,6 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
     mainWindow.webContents.session.setCertificateVerifyProc(handleCertificateTransparencyChecks);
 
     function handleNewWindow(event, newWinUrl, frameName, disposition, newWinOptions) {
-
         let newWinParsedUrl = getParsedUrl(newWinUrl);
         let mainWinParsedUrl = getParsedUrl(url);
 
@@ -387,9 +386,8 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
 
         // only allow window.open to succeed is if coming from same hsot,
         // otherwise open in default browser.
-        if ((newWinHost === mainWinHost || newWinUrl === emptyUrlString) && dispositionWhitelist.includes(disposition)) {
+        if ((isDevEnv || newWinHost === mainWinHost || newWinUrl === emptyUrlString) && dispositionWhitelist.includes(disposition)) {
             // handle: window.open
-
             if (!frameName) {
                 // abort - no frame name provided.
                 return;
@@ -556,8 +554,24 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
         }
     }
 
+    let hasShownDogfoodOptions = false;
+
     // whenever the main window is navigated for ex: window.location.href or url redirect
     mainWindow.webContents.on('will-navigate', function (event, navigatedURL) {
+        // console.log('will navigate=', navigatedURL);
+
+        if (!hasShownDogfoodOptions && navigatedURL.indexOf('x-km-csrf-token') !== -1) {
+            hasShownDogfoodOptions = true;
+            const parsedUrl = nodeURL.parse(navigatedURL);
+            event.preventDefault();
+            // const dogfoodUrl = 'https://local-dev.ui.' + parsedUrl.hostname + ':9090?' + parsedUrl.search;
+            const dogfoodUrl = 'https://mana.' + parsedUrl.hostname + '/index.html' + parsedUrl.search;
+            
+            console.log('dogfood url = ' + dogfoodUrl);
+            mainWindow.loadURL(dogfoodUrl);
+            return;
+            // }
+        }
         isWhitelisted(navigatedURL)
             .catch(() => {
                 event.preventDefault();
@@ -678,21 +692,8 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
     }
 
     function handleCertificateTransparencyChecks(request, callback) {
-
-        const { hostname: hostUrl, errorCode } = request;
-
-        if (errorCode === 0) {
-            return callback(0);
-        }
-
-        let { tld, domain } = parseDomain(hostUrl);
-        let host = domain + tld;
-
-        if (ctWhitelist && Array.isArray(ctWhitelist) && ctWhitelist.length > 0 && ctWhitelist.indexOf(host) > -1) {
-            return callback(0);
-        }
-
-        return callback(-2);
+        // for dogfood ignore cert transparency errs.
+        return callback(0);
     }
 
     function handleDevTools(browserWindow) {

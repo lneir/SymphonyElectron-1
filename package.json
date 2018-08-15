@@ -1,7 +1,7 @@
 {
-  "name": "Symphony",
-  "productName": "Symphony",
-  "version": "2.9.0",
+  "name": "Mana",
+  "productName": "Mana",
+  "version": "1.0.0",
   "buildNumber": "0",
   "description": "Symphony desktop app (Foundation ODP)",
   "author": "Symphony",
@@ -50,7 +50,7 @@
       "library/libsymphonysearch.dylib",
       "library/lz4.exec"
     ],
-    "appId": "com.symphony.electron-desktop",
+    "appId": "com.symphony.mana-desktop",
     "mac": {
       "target": "dmg",
       "category": "public.app-category.business"

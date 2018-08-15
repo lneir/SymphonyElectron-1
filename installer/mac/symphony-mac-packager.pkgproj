@@ -26,7 +26,7 @@
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
-									<string>../../dist/mac/Symphony.app</string>
+									<string>../../dist/mac/Mana.app</string>
 									<key>PATH_TYPE</key>
 									<integer>3</integer>
 									<key>PERMISSIONS</key>
@@ -473,11 +473,11 @@
 				<key>FOLLOW_SYMBOLIC_LINKS</key>
 				<false/>
 				<key>IDENTIFIER</key>
-				<string>com.symphony.symphony-desktop</string>
+				<string>com.symphony.mana-desktop</string>
 				<key>LOCATION</key>
 				<integer>0</integer>
 				<key>NAME</key>
-				<string>Symphony</string>
+				<string>Mana</string>
 				<key>OVERWRITE_PERMISSIONS</key>
 				<false/>
 				<key>PAYLOAD_SIZE</key>
@@ -489,7 +489,7 @@
 				<key>USE_HFS+_COMPRESSION</key>
 				<false/>
 				<key>VERSION</key>
-				<string>2.0.0</string>
+				<string>1.0.0</string>
 			</dict>
 			<key>TYPE</key>
 			<integer>0</integer>
@@ -683,7 +683,7 @@
 						<key>LANGUAGE</key>
 						<string>English</string>
 						<key>VALUE</key>
-						<string>Symphony</string>
+						<string>Mana</string>
 					</dict>
 				</array>
 			</dict>
@@ -1007,7 +1007,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Symphony</string>
+			<string>Mana</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 			<key>TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING</key>

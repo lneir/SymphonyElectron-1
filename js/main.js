@@ -27,6 +27,10 @@ const getCmdLineArg = require('./utils/getCmdLineArg.js');
 const log = require('./log.js');
 const logLevels = require('./enums/logLevels.js');
 
+// if (isDevEnv) {
+//     app.commandLine.appendSwitch('--ignore-certificate-errors');
+// }
+
 require('electron-dl')();
 
 //setting the env path child_process issue https://github.com/electron/electron/issues/7688

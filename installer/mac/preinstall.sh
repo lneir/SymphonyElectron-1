@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-sudo killall Symphony
-sudo rm -rf /Applications/Symphony.app
+sudo killall Mana
+sudo rm -rf /Applications/Mana.app
