@@ -1098,6 +1098,73 @@ function handleKeyPress(keyCode) {
     }
 }
 
+//
+// new apis to create child windows for client 2.0
+//
+
+function createWindow(url, windowName) {
+    const doesWindowNameExist = findWindowByName(windowName);
+    if (doesWindowNameExist) {
+        return; // do nothing window with same name already exists.
+    }
+
+    // create new window at slight offset from main window.
+    let { x, y } = getWindowSizeAndPosition(mainWindow);
+    x += 50;
+    y += 50;
+
+    const newWinOpts = {
+        title: windowName,
+        show: true,
+        frame: true,
+        x: x,
+        y: y,
+        width: DEFAULT_WIDTH,
+        height: DEFAULT_HEIGHT,
+        minWidth: MIN_WIDTH,
+        minHeigh: MIN_HEIGHT,
+        alwaysOnTop: alwaysOnTop,
+        webPreferences: {
+            sandbox: sandboxed,
+            nodeIntegration: isNodeEnv,
+            preload: preloadMainScript,
+            backgroundThrottling: false
+        }
+    }
+
+    const win = new BrowserWindow(newWinOpts);
+    win.winName = windowName;
+    console.log('url=', url);
+    win.loadURL(url);
+
+    // ToDo: handle url load fail.
+
+    let key = getGuid();
+    addWindowKey(key, win);
+}
+
+function closeWindow(windowName) {
+    const win = findWindowByName(windowName);
+    if (win) {
+        win.close();  
+    }
+}
+
+function focusWindow(windowName) {
+    activate(windowName, true);
+}
+
+function findWindowByName(windowName) {
+    let keys = Object.keys(windows);
+    for (let i = 0, len = keys.length; i < len; i++) {
+        let window = windows[keys[i]];
+        if (window && !window.isDestroyed() && window.winName === windowName) {
+            return window;
+        }
+    }
+
+    return null;
+}
 
 module.exports = {
     createMainWindow: createMainWindow,
@@ -1111,5 +1178,8 @@ module.exports = {
     verifyDisplays: verifyDisplays,
     getMenu: getMenu,
     setIsAutoReload: setIsAutoReload,
-    handleKeyPress: handleKeyPress
+    handleKeyPress: handleKeyPress,
+    createWindow: createWindow,
+    closeWindow: closeWindow,
+    focusWindow: focusWindow
 };

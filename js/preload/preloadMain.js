@@ -352,6 +352,28 @@ function createAPI() {
             if (typeof locale === 'string') {
                 throttledSetLocale(locale);
             }
+        },
+
+        createWindow: function(url, windowName) {
+            local.ipcRenderer.send(apiName, {
+                cmd: apiCmds.createWindow,
+                url: url,
+                windowName: windowName
+            });
+        },
+
+        closeWindow: function(windowName) {
+            local.ipcRenderer.send(apiName, {
+                cmd: apiCmds.closeWindow,
+                windowName: windowName
+            });
+        },
+
+        focusWindow: function(windowName) {
+            local.ipcRenderer.send(apiName, {
+                cmd: apiCmds.focusWindow,
+                windowName: windowName
+            });
         }
     };
 

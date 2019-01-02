@@ -169,6 +169,21 @@ electron.ipcMain.on(apiName, (event, arg) => {
                 windowMgr.handleKeyPress(arg.keyCode);
             }
             break;
+        case apiCmds.createWindow:
+            if (typeof arg.url === 'string' && typeof arg.windowName === 'string') {
+                windowMgr.createWindow(arg.url, arg.windowName);
+            }
+            break;
+        case apiCmds.closeWindow:
+            if (typeof arg.windowName === 'string') {
+                windowMgr.closeWindow(arg.windowName);
+            }
+            break;
+        case apiCmds.focusWindow:
+            if (typeof arg.windowName === 'string') {
+                windowMgr.focusWindow(arg.windowName);
+            }
+            break;
         default:
     }
 
