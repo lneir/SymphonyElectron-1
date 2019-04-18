@@ -565,7 +565,7 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
             const parsedUrl = nodeURL.parse(navigatedURL);
             event.preventDefault();
             // const dogfoodUrl = 'https://local-dev.ui.' + parsedUrl.hostname + ':9090?' + parsedUrl.search;
-            const dogfoodUrl = 'https://mana.' + parsedUrl.hostname + '/index.html' + parsedUrl.search;
+            const dogfoodUrl = 'https://' + parsedUrl.hostname + '/clientproxy/index.html' + parsedUrl.search;
             
             console.log('dogfood url = ' + dogfoodUrl);
             mainWindow.loadURL(dogfoodUrl);
