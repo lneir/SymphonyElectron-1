@@ -554,23 +554,16 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
         }
     }
 
-    let hasShownDogfoodOptions = false;
-
     // whenever the main window is navigated for ex: window.location.href or url redirect
     mainWindow.webContents.on('will-navigate', function (event, navigatedURL) {
         // console.log('will navigate=', navigatedURL);
 
-        if (!hasShownDogfoodOptions && navigatedURL.indexOf('x-km-csrf-token') !== -1) {
-            hasShownDogfoodOptions = true;
+        if (navigatedURL.indexOf('x-km-csrf-token') !== -1) {
             const parsedUrl = nodeURL.parse(navigatedURL);
             event.preventDefault();
-            // const dogfoodUrl = 'https://local-dev.ui.' + parsedUrl.hostname + ':9090?' + parsedUrl.search;
             const dogfoodUrl = 'https://' + parsedUrl.hostname + '/clientproxy/index.html' + parsedUrl.search;
-            
-            console.log('dogfood url = ' + dogfoodUrl);
             mainWindow.loadURL(dogfoodUrl);
             return;
-            // }
         }
         isWhitelisted(navigatedURL)
             .catch(() => {
