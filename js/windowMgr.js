@@ -561,7 +561,7 @@ function doCreateMainWindow(initialUrl, initialBounds, isCustomTitleBar) {
         if (navigatedURL.indexOf('x-km-csrf-token') !== -1) {
             const parsedUrl = nodeURL.parse(navigatedURL);
             event.preventDefault();
-            const dogfoodUrl = 'https://' + parsedUrl.hostname + '/clientproxy/index.html' + parsedUrl.search;
+            const dogfoodUrl = 'https://' + parsedUrl.hostname + '/client-bff/index.html' + parsedUrl.search;
             mainWindow.loadURL(dogfoodUrl);
             return;
         }
